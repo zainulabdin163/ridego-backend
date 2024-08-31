@@ -1,9 +1,8 @@
-const CatchAsync = <T extends (...args: any[]) => Promise<any>>(func: T) => {
-  return (...args: Parameters<T>) => {
-    func(...args).catch((err: any) => {
-      // You can handle the error here or pass it to a global error handler
-      console.error(err); // For example, just logging it
-    });
+import { NextFunction, Request, Response } from "express";
+
+const CatchAsync = (func: Function) => {
+  return (req: Request, res: Response, next: NextFunction) => {
+    func(req, res, next).catch(next);
   };
 };
 
