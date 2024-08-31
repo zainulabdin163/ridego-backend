@@ -5,9 +5,10 @@ import helmet from "helmet";
 import mongoSanitize from "express-mongo-sanitize";
 import hpp from "hpp";
 
-import AppError from "./utils/app-error";
+import { AppError } from "./utils";
 import globalErrorHandler from "./controllers/error-controller";
 
+import userRouter from "./routes/userRoutes";
 // const tourRouter = require("./routes/tourRoutes");
 // const userRouter = require("./routes/userRoutes");
 // const reviewRouter = require("./routes/reviewRoutes");
@@ -42,12 +43,13 @@ app.use(
   })
 );
 
+app.use("/api/v1/users", userRouter);
 // app.use("/api/v1/tours/", tourRouter);
 // app.use("/api/v1/users/", userRouter);
 // app.use("/api/v1/reviews/", reviewRouter);
 
 app.get("/", (req: Request, res: Response, next: NextFunction) => {
-  res.send("Hey");
+  res.send("Hello from RideGO backend.");
 });
 
 app.all("*", (req, res, next) => {
