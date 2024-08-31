@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "target": "ES6",
+    "module": "commonjs",
+    "outDir": "./dist", // Transpiled JS files will go into this folder
+    "rootDir": "./src", // Source TypeScript files live in this folder
+    "strict": true,
+    "esModuleInterop": true
+  },
+  "include": ["src"], // Ensure only TypeScript files in the src folder are compiled
+  "exclude": ["node_modules"] // Exclude dependencies
+}
