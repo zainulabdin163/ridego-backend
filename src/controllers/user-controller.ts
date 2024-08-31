@@ -65,13 +65,6 @@ const deleteMe = CatchAsync(
   }
 );
 
-const createUser = (req: Request, res: Response) => {
-  res.status(500).json({
-    status: "error",
-    message: "This route is not defined! Please use /signup instead",
-  });
-};
-
 const updateUser = updateOne(User);
 const deleteUser = deleteOne(User);
 const getUser = getOne(User);
@@ -81,7 +74,6 @@ export {
   getMe,
   updateMe,
   deleteMe,
-  createUser,
   updateUser,
   deleteUser,
   getUser,
