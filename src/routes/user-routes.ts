@@ -16,7 +16,7 @@ import {
   updateMe,
   updateUser,
 } from "../controllers/user-controller";
-import { Roles } from "../models/userModel";
+import { Roles } from "../models/user-model";
 
 const router = express.Router();
 

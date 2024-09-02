@@ -3,7 +3,7 @@ import { promisify } from "util";
 import crypto from "crypto";
 import jwt from "jsonwebtoken";
 
-import User, { IUserDocument, Roles } from "../models/userModel";
+import User, { IUserDocument, Roles } from "../models/user-model";
 import { CatchAsync, AppError, sendEmail } from "../utils";
 
 interface IJwtPayload {
@@ -229,7 +229,7 @@ const updatePassword = CatchAsync(
 
       if (user) {
         if (
-          !(await user.correctPassword(req.body.passwordCurrent, user.password))
+          await user.correctPassword(req.body.passwordCurrent, user.password)
         ) {
           return next(new AppError("Your current password is wrong", 401));
         }

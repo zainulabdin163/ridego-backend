@@ -1,7 +1,7 @@
 import { Response, Request, NextFunction } from "express";
 import { AppError, CatchAsync } from "../utils";
 import { updateOne, deleteOne, getOne, getAll } from "./handler-factory";
-import User from "../models/userModel";
+import User from "../models/user-model";
 
 const filterObj = <T extends Record<string, any>>(
   obj: T,
