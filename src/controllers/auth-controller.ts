@@ -2,9 +2,8 @@ import { CookieOptions, NextFunction, Request, Response } from "express";
 import { promisify } from "util";
 import crypto from "crypto";
 import jwt from "jsonwebtoken";
-
-import User, { IUserDocument, Roles } from "../models/user-model";
 import { CatchAsync, AppError, sendEmail } from "../utils";
+import User, { IUserDocument, Roles } from "../models/user-model";
 
 interface IJwtPayload {
   iat: number;
@@ -93,7 +92,6 @@ const protectRoute = CatchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     let token: string | undefined;
 
-    // Check if token exists in Authorization header
     if (
       req.headers.authorization &&
       req.headers.authorization.startsWith("Bearer")

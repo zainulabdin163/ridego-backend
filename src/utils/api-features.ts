@@ -30,6 +30,7 @@ export default class APIFeatures<T> {
     const parsed: QueryString = {};
     Object.keys(queryString).forEach((key) => {
       const value = queryString[key];
+
       if (Array.isArray(value)) {
         parsed[key] = value;
       } else if (typeof value === "object") {
@@ -38,6 +39,7 @@ export default class APIFeatures<T> {
         parsed[key] = value;
       }
     });
+
     return parsed;
   }
 

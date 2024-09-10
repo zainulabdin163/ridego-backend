@@ -4,7 +4,6 @@ import {
   Model,
   PopulateOptions as MongoosePopulateOptions,
 } from "mongoose";
-
 import { AppError, CatchAsync, APIFeatures } from "../utils";
 
 type ModelType<T extends Document> = Model<T>;
@@ -17,9 +16,11 @@ type PopulateOptions =
 const deleteOne = <T extends Document>(model: ModelType<T>) =>
   CatchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const doc = await model.findByIdAndDelete(req.params.id);
+
     if (!doc) {
       return next(new AppError("No document found with that ID", 404));
     }
+
     res.status(204).json({
       status: "success",
       data: null,
@@ -48,6 +49,7 @@ const updateOne = <T extends Document>(model: ModelType<T>) =>
 const createOne = <T extends Document>(model: ModelType<T>) =>
   CatchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const doc = await model.create(req.body);
+
     res.status(201).json({
       status: "success",
       data: {

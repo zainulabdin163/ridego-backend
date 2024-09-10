@@ -1,4 +1,4 @@
-import mongoose, { Document, Query } from "mongoose";
+import mongoose, { Document, Query, Schema } from "mongoose";
 import crypto from "crypto";
 import validator from "validator";
 import bcrypt from "bcryptjs";
@@ -20,6 +20,11 @@ export interface IUserDocument extends Document {
   passwordResetToken?: string;
   passwordResetExpires?: Date;
   active?: boolean;
+  rides?: mongoose.Schema.Types.ObjectId[];
+  location?: {
+    type: { type: String; enum: ["Point"]; required: true };
+    coordinates: { type: [Number]; required: true };
+  };
   correctPassword(
     candidatePassword: string,
     userPassword: string | undefined
@@ -49,7 +54,7 @@ const userSchema = new mongoose.Schema({
   role: {
     type: String,
     enum: [Roles.User, Roles.Driver, Roles.Admin],
-    default: "user",
+    default: Roles.User,
   },
 
   password: {
@@ -75,7 +80,16 @@ const userSchema = new mongoose.Schema({
     default: true,
     select: false,
   },
+
+  rides: { type: [Schema.Types.ObjectId], ref: "Rides" },
+
+  location: {
+    type: { type: String, enum: ["Point"] },
+    coordinates: { type: [Number] },
+  },
 });
+
+userSchema.index({ location: "2dsphere" });
 
 userSchema.pre<IUserDocument>("save", async function (next) {
   if (!this.isModified("password")) return next();
